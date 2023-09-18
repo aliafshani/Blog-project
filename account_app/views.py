@@ -1,6 +1,9 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.models import User
+from django.urls import reverse
+
+
 # Create your views here.
 
 
@@ -22,7 +25,7 @@ def account_app(request):
 
 def log_out(request):
     logout(request)
-    return redirect('/')
+    return redirect('account:regester')
 
 
 def regester(request):
@@ -31,7 +34,9 @@ def regester(request):
         username=request.POST.get('username')
         email=request.POST.get('email')
         password=request.POST.get('password')
-        User.objects.create(username=username, email=email, password=password)
+        user=User.objects.create(username=username, email=email)
+        user.set_password(password)
+        user.save()
         return redirect('/')
     if request.user.is_authenticated:
         return redirect('/')

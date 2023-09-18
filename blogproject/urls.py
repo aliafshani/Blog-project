@@ -6,6 +6,7 @@ from . import settings
 urlpatterns = [
     path('', include('home_page.urls')),
     path('', include('account_app.urls')),
+    path('', include('blog_app.urls')),
     path('admin/', admin.site.urls),
 ]
 
